@@ -1,0 +1,15 @@
+{% extends 'catalog/base.html' %}
+
+{% block title %}Товары{% endblock %}
+
+{% block content %}
+<h1>Товары</h1>
+<a href="{% url 'add_product' %}">Добавить товар</a>
+<ul>
+    {% for product in products %}
+    <li>
+        <a href="{% url 'product_detail' product.id %}">{{ product.name }}</a> - {{ product.price }} руб.
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

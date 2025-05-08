@@ -1,0 +1,31 @@
+{% extends 'catalog/base.html' %}
+
+{% block title %}{{ product.name }}{% endblock %}
+
+{% block content %}
+<h1>{{ product.name }}</h1>
+{% if product.image %}
+<img src="{{ product.image.url }}" alt="{{ product.name }}" width="200">
+{% endif %}
+<p>{{ product.description }}</p>
+<p>Цена: {{ product.price }} руб.</p>
+<p>Категория: 
+    {% if product.category %}
+    <a href="{% url 'category_products' product.category.id %}">{{ product.category.name }}</a>
+    {% else %}
+    Нет категории
+    {% endif %}
+</p>
+<p>Теги: 
+    {% for tag in product.tags.all %}
+    <a href="{% url 'tag_products' tag.id %}">{{ tag.name }}</a>{% if not forloop.last %}, {% endif %}
+    {% empty %}
+    Нет тегов
+    {% endfor %}
+</p>
+<form action="{% url 'add_to_cart' product.id %}" method="post">
+    {% csrf_token %}
+    <button type="submit">Добавить в корзину</button>
+</form>
+<a href="{% url 'product_list' %}">Назад к списку товаров</a>
+{% endblock %}

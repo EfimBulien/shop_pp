@@ -1,0 +1,13 @@
+{% extends 'catalog/base.html' %}
+
+{% block title %}Добавить категорию{% endblock %}
+
+{% block content %}
+<h1>Добавить категорию</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Сохранить</button>
+</form>
+<a href="{% url 'category_list' %}">Назад к списку категорий</a>
+{% endblock %}
